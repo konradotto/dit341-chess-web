@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
 
+var gamesController = require('./controllers/games');
+var puzzlesController = require('./controllers/puzzles');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
 var port = process.env.PORT || 3000;
@@ -25,6 +27,9 @@ app.use(bodyParser.json());            // Parse requests of content-type 'applic
 app.use(morgan('dev'));                // HTTP request logger
 app.options('*', cors());              // Enable cross-origin resource sharing for frontend must be registered before api
 app.use(cors());
+
+app.use('/api/games', gamesController);
+app.use('/api/puzzles', puzzlesController);
 
 
 // Error handler (i.e., when exception is thrown) must be registered last
