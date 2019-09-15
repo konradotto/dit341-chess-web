@@ -26,6 +26,11 @@ app.use(morgan('dev'));                // HTTP request logger
 app.options('*', cors());              // Enable cross-origin resource sharing for frontend must be registered before api
 app.use(cors());
 
+// Endpoints
+var usersController = require('./controllers/users')
+var ratingsController = require('./controllers/ratings')
+app.use('/api/v1/users', usersController)
+app.use('/api/v1/ratings', ratingsController)
 
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
