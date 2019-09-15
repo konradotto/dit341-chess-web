@@ -4,6 +4,8 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
 
+var usersController = require('./controllers/users')
+var ratingsController = require('./controllers/ratings')
 var gamesController = require('./controllers/games');
 var puzzlesController = require('./controllers/puzzles');
 
@@ -28,9 +30,11 @@ app.use(morgan('dev'));                // HTTP request logger
 app.options('*', cors());              // Enable cross-origin resource sharing for frontend must be registered before api
 app.use(cors());
 
+// Endpoints
+app.use('/api/v1/users', usersController)
+app.use('/api/v1/ratings', ratingsController)
 app.use('/api/games', gamesController);
 app.use('/api/puzzles', puzzlesController);
-
 
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
