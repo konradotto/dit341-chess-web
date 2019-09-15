@@ -50,3 +50,6 @@ npm run serve
 ## Visual Studio Code (VSCode)
 
 Open the `server` and `client` in separate VSCode workspaces or open the combined [backend-frontend.code-workspace](./backend-frontend.code-workspace). Otherwise, workspace-specific settings don't work properly.
+
+
+__Line added by bartek for commit push testing purposes__
