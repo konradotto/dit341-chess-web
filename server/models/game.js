@@ -3,11 +3,11 @@
  * 
  * This schema is inspired by https://chesstempo.com/game-database.html.
  */
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
 // define the schema of the games database 
-var gameSchema = new Schema({
+let gameSchema = new Schema({
     PGN: { type: String },
     event: { type: String, default: "Single Game" },
     site: { type: String, default: "ChessMate.com" },
