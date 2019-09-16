@@ -44,7 +44,7 @@ router.get('/games/:id', function(req, res, next) {
 });
 
 // Update the game with the given ID
-router.update('/games/:id', function(req, res, next) {
+router.put('/games/:id', function(req, res, next) {
     let id = req.params.id;
     // update the game with the given id using the request body
     Game.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, game) {
