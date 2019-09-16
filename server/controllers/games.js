@@ -15,7 +15,7 @@ let router = express.Router();
 let Game = require('../models/game');
 
 // Create a new game by posting a json request
-router.post('/games', function(req, res, next) {
+router.post('/', function(req, res, next) {
     let game = new Game(req.body);
     game.save(function(err) {
         if (err) { return next(err); }
@@ -24,7 +24,7 @@ router.post('/games', function(req, res, next) {
 });
 
 // Return a list of all games
-router.get('/games', function(req, res, next) {
+router.get('/', function(req, res, next) {
     Game.find(function(err, games) {
         if (err) { return next(err); }
         res.json({'games': games});
@@ -32,7 +32,7 @@ router.get('/games', function(req, res, next) {
 });
 
 // Return the game with the given ID
-router.get('/games/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     let id = req.params.id;
     Game.findById(id, function(err, game) {
         if (err) { return next(err); }
@@ -44,7 +44,7 @@ router.get('/games/:id', function(req, res, next) {
 });
 
 // Update the game with the given ID
-router.put('/games/:id', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
     let id = req.params.id;
     // update the game with the given id using the request body
     Game.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, game) {
@@ -57,7 +57,7 @@ router.put('/games/:id', function(req, res, next) {
 });
 
 // Deliver error 405 'Method Not Allowed' for all methods not defined previously
-router.all('/games', function(req, res, next) {
+router.all('/', function(req, res, next) {
     res.set('Allow', ['POST', 'GET', 'UPDATE']);
     res.status(405).json({'message': 'Method Not Allowed'});
 });
