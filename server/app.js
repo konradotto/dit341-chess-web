@@ -5,7 +5,8 @@ var morgan = require('morgan');
 var cors = require('cors');
 var usersController = require('./entities/user/userRouter');
 var ratingsController = require('./entities/rating/ratingRouter');
-
+var gamesController = require('./entities/game/gameRouter');
+var puzzlesController = require('./entities/puzzle/puzzleRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
 var port = process.env.PORT || 3000;
@@ -29,8 +30,10 @@ app.options('*', cors());              // Enable cross-origin resource sharing f
 app.use(cors());
 
 // Endpoints
-app.use('/api/v1/users', usersController);
-app.use('/api/v1/ratings', ratingsController);
+app.use('/api/v1/users', usersController)
+app.use('/api/v1/ratings', ratingsController)
+app.use('/api/games', gamesController);
+app.use('/api/puzzles', puzzlesController);
 
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
