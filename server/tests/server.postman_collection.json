@@ -35,11 +35,11 @@
 					"raw": "{\n  \"firstName\": \"Magnus\",\n  \"lastName\": \"Carlsen\", \n  \"userName\": \"MagnusCarlsen\",\n  \"email\": \"Magnus.Carlsen@gmail.com\",\n  \"password\": \"password\",\n  \"profile_bio\": \"Carlsen is the reigning World Champion and arguably the strongest player who ever lived...\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/users",
+					"raw": "localhost:3001/api/v1/users",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -72,11 +72,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/users",
+					"raw": "localhost:3001/api/v1/users",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -116,11 +116,11 @@
 					"raw": "{\n  \"firstName\": \"Alexander\",\n  \"lastName\": \"Grischuk\", \n  \"userName\": \"GrischukAlex\",\n  \"email\": \"Alexander.Grischuk@hotmail.com\",\n  \"password\": \"1234\",\n  \"profile_bio\": \"Alexander Igorevich Grischuk is a Russian chess player. He was awarded the title of Grandmaster by FIDE in 2000.\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/users",
+					"raw": "localhost:3001/api/v1/users",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -141,11 +141,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/users/:id",
+					"raw": "localhost:3001/api/v1/users/:id",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
@@ -172,11 +172,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/users/:id",
+					"raw": "localhost:3001/api/v1/users/:id",
 					"host": [
 						"localhost"
 					],
-					"port": "3000",
+					"port": "3001",
 					"path": [
 						"api",
 						"v1",
