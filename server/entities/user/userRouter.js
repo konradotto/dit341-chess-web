@@ -1,7 +1,7 @@
 var express = require('express');
-var router = express.Router();
 var User = require('./userModel');
 var userValidator = require('./userValidator');
+var userPreparer = require('./userPreparer');
 
 function getUsers(req, res, next) {
     User.find((err, users) => {
@@ -47,12 +47,10 @@ function createUser(req, res, next) {
 
     var user = new User(req.body);
     user.save(function(err) {
-
         if (err) { 
             return next(err); 
         }
 
-        console.log(2);
         res.status(201).json(user);
     });
 }
@@ -75,8 +73,9 @@ function deleteUser(req, res, next) {
 }
 
 // Mapping the handlers to the routes
+var router = express.Router();
 router.get('/', getUsers);
-router.post('/', [userValidator.checkUserDontExist, createUser]);
+router.post('/', [userValidator.checkUserDontExist, userPreparer.encryptPassword, createUser]);
 router.get('/:id', getUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
