@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
-var usersController = require('./entities/user/usersRouter');
-var ratingsController = require('./entities/rating/ratingsRouter');
+var usersController = require('./entities/user/userRouter');
+var ratingsController = require('./entities/rating/ratingRouter');
 
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
