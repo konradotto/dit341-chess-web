@@ -1,11 +1,10 @@
 var express = require('express');
-var router = express.Router();
-var User = require('../models/user');
+var User = require('./userModel');
+var checkUserDontExist = require('./userValidator').checkUserDontExist;
+var encryptPassword = require('./userPreparer').encryptPassword;
 
-// Route handlers
-var getAllUsers = function(req, res, next) {
-
-    User.find(function(err, users) {
+function getUsers(req, res, next) {
+    User.find((err, users) => {
         if (err) { 
             return next(err); 
         }
@@ -13,10 +12,10 @@ var getAllUsers = function(req, res, next) {
     });
 }
 
-var getUser = function(req, res, next) {
+function getUser(req, res, next) {
 
     var id = req.params.id
-    User.findById(id, function(err, user) {
+    User.findById(id, (err, user) => {
 
         if (err) { 
             return next(err); 
@@ -30,11 +29,24 @@ var getUser = function(req, res, next) {
     });
 }
 
-var createUser = function(req, res, next) {
+function updateUser(req, res, next) {
+
+    var id = req.params.id
+
+    User.findOneAndUpdate(id, req.body, {new: true, useFindAndModify: false}, (err, user) => {
+
+        if (err) { 
+            return next(err); 
+        }
+        
+        return res.json(user)
+    });
+}
+
+function createUser(req, res, next) {
 
     var user = new User(req.body);
     user.save(function(err) {
-
         if (err) { 
             return next(err); 
         }
@@ -43,10 +55,10 @@ var createUser = function(req, res, next) {
     });
 }
 
-var deleteUser = function(req, res, next) {
+function deleteUser(req, res, next) {
 
     var id = req.params.id;
-    User.findOneAndDelete({_id: id}, function(err, user) {
+    User.findOneAndDelete({_id: id}, {useFindAndModify: false}, (err, user) => {
 
         if (err) { 
             return next(err); 
@@ -61,9 +73,11 @@ var deleteUser = function(req, res, next) {
 }
 
 // Mapping the handlers to the routes
-router.get('/', getAllUsers);
+var router = express.Router();
+router.get('/', getUsers);
+router.post('/', [checkUserDontExist, encryptPassword, createUser]);
 router.get('/:id', getUser);
-router.post('/', createUser);
+router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 
 module.exports = router;

@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
+var usersController = require('./entities/user/userRouter');
+var ratingsController = require('./entities/rating/ratingRouter');
 
 var usersController = require('./controllers/users')
 var ratingsController = require('./controllers/ratings')
