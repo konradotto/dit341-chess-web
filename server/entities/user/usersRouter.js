@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
+var User = require('./userModel');
+var userValidator = require('./userValidator');
 
 function getUsers(req, res, next) {
-
     User.find((err, users) => {
         if (err) { 
             return next(err); 
@@ -44,6 +44,7 @@ function updateUser(req, res, next) {
 }
 
 function createUser(req, res, next) {
+
     var user = new User(req.body);
     user.save(function(err) {
 
@@ -51,6 +52,7 @@ function createUser(req, res, next) {
             return next(err); 
         }
 
+        console.log(2);
         res.status(201).json(user);
     });
 }
@@ -74,7 +76,7 @@ function deleteUser(req, res, next) {
 
 // Mapping the handlers to the routes
 router.get('/', getUsers);
-router.post('/', createUser);
+router.post('/', [userValidator.checkUserDontExist, createUser]);
 router.get('/:id', getUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);

@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Rating = require('../models/rating');
+var Rating = require('./ratingModel');
 
 // Route handlers
 var getAllRatings = function(req, res, next) {
