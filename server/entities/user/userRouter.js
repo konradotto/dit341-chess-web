@@ -1,7 +1,7 @@
 var express = require('express');
 var User = require('./userModel');
-var userValidator = require('./userValidator');
-var userPreparer = require('./userPreparer');
+var checkUserDontExist = require('./userValidator').checkUserDontExist;
+var encryptPassword = require('./userPreparer').encryptPassword;
 
 function getUsers(req, res, next) {
     User.find((err, users) => {
@@ -75,7 +75,7 @@ function deleteUser(req, res, next) {
 // Mapping the handlers to the routes
 var router = express.Router();
 router.get('/', getUsers);
-router.post('/', [userValidator.checkUserDontExist, userPreparer.encryptPassword, createUser]);
+router.post('/', [checkUserDontExist, encryptPassword, createUser]);
 router.get('/:id', getUser);
 router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
