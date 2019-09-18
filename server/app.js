@@ -5,11 +5,8 @@ var morgan = require('morgan');
 var cors = require('cors');
 var usersController = require('./entities/user/userRouter');
 var ratingsController = require('./entities/rating/ratingRouter');
-
-var usersController = require('./controllers/users')
-var ratingsController = require('./controllers/ratings')
-var gamesController = require('./controllers/games');
-var puzzlesController = require('./controllers/puzzles');
+var gamesController = require('./entities/game/gameRouter');
+var puzzlesController = require('./entities/puzzle/puzzleRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
 var port = process.env.PORT || 3000;

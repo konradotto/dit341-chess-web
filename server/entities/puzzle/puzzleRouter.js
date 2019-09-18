@@ -6,7 +6,7 @@
 
 let express = require('express');
 let router = express.Router();
-let Puzzle = require('../models/puzzle');
+let Puzzle = require('./puzzleModel');
 
 /**
  * Function creating a puzzle from a json request

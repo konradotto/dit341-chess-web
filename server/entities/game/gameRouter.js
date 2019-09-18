@@ -12,7 +12,7 @@
 
 let express = require('express');
 let router = express.Router();
-let Game = require('../models/game');
+let Game = require('./gameModel');
 
 // Create a new game by posting a json request
 router.post('/', function(req, res, next) {
