@@ -1,294 +1,198 @@
 {
 	"info": {
-		"_postman_id": "75a6a09b-dd85-497a-92ec-8f65b35c0b61",
-		"name": "DIT341",
+		"_postman_id": "2dd05ef1-8b14-47a6-b9d4-62d1b9d16e65",
+		"name": "ChessMate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Users",
-			"item": [
+			"name": "Post Carlsen",
+			"event": [
 				{
-					"name": "User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "927025af-5584-4888-a286-730662635095",
-								"exec": [
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"pm.test(\"Body has first and last name\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.firstName).to.eql(\"Bartek\");",
-									"    pm.expect(jsonData.lastName).to.eql(\"Spitza\");",
-									"});",
-									"",
-									"pm.test(\"Body has _id\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData._id).to.be.a('String');",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
+					"listen": "test",
+					"script": {
+						"id": "b231f0aa-c1ee-46c4-ae58-d1c59f387c3b",
+						"exec": [
+							"var carlsenResp = JSON.parse(responseBody);",
+							"pm.environment.set(\"idCarlsen\", carlsenResp._id);"
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"Bartek\",\n\t\"lastName\": \"Spitza\",\n\t\"userName\": \"bartekspitza\",\n\t\"email\": \"bartekspitza@hotmail.com\",\n\t\"password\": \"bartek\"\n}\n"
-						},
-						"url": {
-							"raw": "{{host}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "927025af-5584-4888-a286-730662635095",
-								"exec": [
-									"",
-									"var jsonData = pm.response.json();",
-									"",
-									"",
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Body has a 'users' array\", function () {",
-									"    var jsonData = pm.response.json();",
-									"    pm.expect(jsonData.users).to.be.a('Array');",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"username\": \"bartek\",\n\t\"asdf\": 2\n}\n"
-						},
-						"url": {
-							"raw": "{{host}}/users",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "927025af-5584-4888-a286-730662635095",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"Spitza\"\n}\n"
-						},
-						"url": {
-							"raw": "{{host}}/users/5d82804071fd3317f76735a7",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"users",
-								"5d82804071fd3317f76735a7"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "927025af-5584-4888-a286-730662635095",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"firstName\": \"Spitza\"\n}\n"
-						},
-						"url": {
-							"raw": "{{host}}/users/5d82802771fd3317f76735a6",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"users",
-								"5d82802771fd3317f76735a6"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "User",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "927025af-5584-4888-a286-730662635095",
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept",
-								"type": "text",
-								"value": "application/json"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"username\": \"bartek\",\n\t\"asdf\": 2\n}\n"
-						},
-						"url": {
-							"raw": "{{host}}/users/5d82802771fd3317f76735a6",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"users",
-								"5d82802771fd3317f76735a6"
-							]
-						}
-					},
-					"response": []
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Magnus\",\n  \"lastName\": \"Carlsen\", \n  \"userName\": \"MagnusCarlsen\",\n  \"email\": \"Magnus.Carlsen@gmail.com\",\n  \"password\": \"password\",\n  \"profile_bio\": \"Carlsen is the reigning World Champion and arguably the strongest player who ever lived...\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				},
+				"description": "Post Magnus Carlsen"
+			},
+			"response": []
 		},
 		{
-			"name": "Ratings",
-			"item": [
+			"name": "Get Players",
+			"event": [
 				{
-					"name": "Ratings",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/ratings/",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"ratings",
-								""
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"id": "125b5a66-a75a-478c-b7f9-ca05ff5255fd",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				},
+				"description": "get all users"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Grischuk",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48022c4b-d0f7-48f6-aabb-c2a3e72a94ca",
+						"exec": [
+							"var grischukResp = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"idGrischuk\", grischukResp._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Alexander\",\n  \"lastName\": \"Grischuk\", \n  \"userName\": \"GrischukAlex\",\n  \"email\": \"Alexander.Grischuk@hotmail.com\",\n  \"password\": \"1234\",\n  \"profile_bio\": \"Alexander Igorevich Grischuk is a Russian chess player. He was awarded the title of Grandmaster by FIDE in 2000.\"\n}"
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				},
+				"description": "Post Grischuk"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Carlsen",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1/users/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idCarlsen}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Grischuk",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:3001/api/v1/users/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{idGrischuk}}"
+						}
+					]
+				},
+				"description": "Delete Alexander Grischuk"
+			},
+			"response": []
 		}
 	]
 }
