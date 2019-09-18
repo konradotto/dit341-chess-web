@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
+var usersController = require('./controllers/users')
+var ratingsController = require('./controllers/ratings')
 
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
@@ -27,8 +29,6 @@ app.options('*', cors());              // Enable cross-origin resource sharing f
 app.use(cors());
 
 // Endpoints
-var usersController = require('./controllers/users')
-var ratingsController = require('./controllers/ratings')
 app.use('/api/v1/users', usersController)
 app.use('/api/v1/ratings', ratingsController)
 

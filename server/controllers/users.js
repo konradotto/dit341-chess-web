@@ -2,10 +2,9 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-// Route handlers
-var getAllUsers = function(req, res, next) {
+function getUsers(req, res, next) {
 
-    User.find(function(err, users) {
+    User.find((err, users) => {
         if (err) { 
             return next(err); 
         }
@@ -13,10 +12,10 @@ var getAllUsers = function(req, res, next) {
     });
 }
 
-var getUser = function(req, res, next) {
+function getUser(req, res, next) {
 
     var id = req.params.id
-    User.findById(id, function(err, user) {
+    User.findById(id, (err, user) => {
 
         if (err) { 
             return next(err); 
@@ -30,8 +29,21 @@ var getUser = function(req, res, next) {
     });
 }
 
-var createUser = function(req, res, next) {
+function updateUser(req, res, next) {
 
+    var id = req.params.id
+
+    User.findOneAndUpdate(id, req.body, {new: true, useFindAndModify: false}, (err, user) => {
+
+        if (err) { 
+            return next(err); 
+        }
+        
+        return res.json(user)
+    });
+}
+
+function createUser(req, res, next) {
     var user = new User(req.body);
     user.save(function(err) {
 
@@ -43,10 +55,10 @@ var createUser = function(req, res, next) {
     });
 }
 
-var deleteUser = function(req, res, next) {
+function deleteUser(req, res, next) {
 
     var id = req.params.id;
-    User.findOneAndDelete({_id: id}, function(err, user) {
+    User.findOneAndDelete({_id: id}, {useFindAndModify: false}, (err, user) => {
 
         if (err) { 
             return next(err); 
@@ -61,9 +73,10 @@ var deleteUser = function(req, res, next) {
 }
 
 // Mapping the handlers to the routes
-router.get('/', getAllUsers);
-router.get('/:id', getUser);
+router.get('/', getUsers);
 router.post('/', createUser);
+router.get('/:id', getUser);
+router.put('/:id', updateUser);
 router.delete('/:id', deleteUser);
 
 module.exports = router;
