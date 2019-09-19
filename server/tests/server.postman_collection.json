@@ -6,6 +6,42 @@
 	},
 	"item": [
 		{
+			"name": "HEAD /api",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2fcc4836-e0f9-4be3-a418-c577dcf406e1",
+						"exec": [
+							"pm.environment.set(\"host\", \"localhost\");",
+							"pm.environment.set(\"port\", \"3000\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api"
+					]
+				},
+				"description": "This is for some reason in the automated tests"
+			},
+			"response": []
+		},
+		{
 			"name": "Post Carlsen",
 			"event": [
 				{
@@ -35,11 +71,11 @@
 					"raw": "{\n  \"firstName\": \"Magnus\",\n  \"lastName\": \"Carlsen\", \n  \"userName\": \"MagnusCarlsen\",\n  \"email\": \"Magnus.Carlsen@gmail.com\",\n  \"password\": \"password\",\n  \"profile_bio\": \"Carlsen is the reigning World Champion and arguably the strongest player who ever lived...\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3001/api/v1/users",
+					"raw": "{{host}}:{{port}}/api/v1/users",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3001",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"v1",
@@ -72,11 +108,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:3001/api/v1/users",
+					"raw": "{{host}}:{{port}}/api/v1/users",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3001",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"v1",
@@ -96,7 +132,7 @@
 						"id": "48022c4b-d0f7-48f6-aabb-c2a3e72a94ca",
 						"exec": [
 							"var grischukResp = JSON.parse(responseBody);",
-							"postman.setEnvironmentVariable(\"idGrischuk\", grischukResp._id);"
+							"pm.environment.set(\"idGrischuk\", grischukResp._id);"
 						],
 						"type": "text/javascript"
 					}
@@ -116,11 +152,11 @@
 					"raw": "{\n  \"firstName\": \"Alexander\",\n  \"lastName\": \"Grischuk\", \n  \"userName\": \"GrischukAlex\",\n  \"email\": \"Alexander.Grischuk@hotmail.com\",\n  \"password\": \"1234\",\n  \"profile_bio\": \"Alexander Igorevich Grischuk is a Russian chess player. He was awarded the title of Grandmaster by FIDE in 2000.\"\n}"
 				},
 				"url": {
-					"raw": "localhost:3001/api/v1/users",
+					"raw": "{{host}}:{{port}}/api/v1/users",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3001",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"v1",
@@ -128,6 +164,473 @@
 					]
 				},
 				"description": "Post Grischuk"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Ratings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/v1/ratings",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"ratings"
+					]
+				},
+				"description": "Post a rating for player Grischuk"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Grischuk",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"firstName\": \"Alexander\",\n  \"lastName\": \"Grischuk\", \n  \"userName\": \"AlexGrischuk\",\n  \"email\": \"Grischuk.Alexander@hotmail.com\",\n  \"password\": \"4321\",\n  \"profile_bio\": \"Alexander Igorevich Grischuk is a Russian chess player. He was awarded the title of Grandmaster by FIDE in 2000.\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/v1/users/:{{idGrischuk}}?",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						":{{idGrischuk}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				},
+				"description": "Update values of Grischuk"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Carlsen vs Grischuk",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "52450caa-ac31-48d8-b225-a2a117ba1018",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "320a21f8-ed92-42ec-885a-03101fd7151d",
+						"exec": [
+							"var gameResp = JSON.parse(responseBody);",
+							"pm.environment.set(\"idGame\", gameResp._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PGN\": \"1.e4 e5 2.Nf3 Nc6 3.Bb5 Nf6 4.d3 Bc5 5.c3 O-O 6.O-O d6 7.Ba4 Ne7 8.Bc2 Ng6 9.d4 Bb6 10.a4 c6 11.dxe5 Nxe5 12.Nxe5 dxe5 13.Qxd8 Rxd8 14.a5 Bc5 15.Nd2 Be6 16.Re1 b5 17.Nb3 Bxb3 18.Bxb3 Ng4 19.Re2 Rd6 20.Bg5 Kf8 21.Rf1 Nf6 22.g3 a6 23.Kg2 Nd7 24.Bc1 Ba7 25.f4 f6 26.h4 Re8 27.h5 h6 28.Ba2 c5 29.Be3 exf4 30.gxf4 Rxe4 31.Bb1 Re7 32.Rfe1 f5 33.Bxf5 Nf6 34.Kf3 Nd5 35.Rd2 Rd8 36.Be4 Red7 37.Red1 Nf6 38.Rxd7 Nxd7 39.Rd6 1-0\",\n    \"event\": \"Shamkir Chess\",\n    \"site\": \"chess24.com\",\n    \"date\": \"2019-04-09\",\n    \"white\": \"{{idCarlsen}}\",\n    \"black\": \"{{idGrischuk}}\",\n    \"result\": \"1-0\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/games",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/games",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"games"
+					]
+				},
+				"description": "API request to get games"
+			},
+			"response": []
+		},
+		{
+			"name": "Put Carlsen vs Grischuk",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "52450caa-ac31-48d8-b225-a2a117ba1018",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PGN\": \"1.e4 e5 2.Nf3 Nc6 3.Bb5 Nf6 4.d3 Bc5 5.c3 O-O 6.O-O d6 7.Ba4 Ne7 8.Bc2 Ng6 9.d4 Bb6 10.a4 c6 11.dxe5 Nxe5 12.Nxe5 dxe5 13.Qxd8 Rxd8 14.a5 Bc5 15.Nd2 Be6 16.Re1 b5 17.Nb3 Bxb3 18.Bxb3 Ng4 19.Re2 Rd6 20.Bg5 Kf8 21.Rf1 Nf6 22.g3 a6 23.Kg2 Nd7 24.Bc1 Ba7 25.f4 f6 26.h4 Re8 27.h5 h6 28.Ba2 c5 29.Be3 exf4 30.gxf4 Rxe4 31.Bb1 Re7 32.Rfe1 f5 33.Bxf5 Nf6 34.Kf3 Nd5 35.Rd2 Rd8 36.Be4 Red7 37.Red1 Nf6 38.Rxd7 Nxd7 39.Rd6 1-0\",\n    \"event\": \"Shamkir Chess\",\n    \"site\": \"chess24.com\",\n    \"round\": 3,\n    \"date\": \"2019-04-09\",\n    \"white\": \"{{idCarlsen}}\",\n    \"black\": \"{{idGrischuk}}\",\n    \"result\": \"1-0\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/games/{{idGame}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"games",
+						"{{idGame}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Games Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/games",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"games"
+					]
+				},
+				"description": "API request to get games"
+			},
+			"response": []
+		},
+		{
+			"name": "GET specific game",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/games/{{idGame}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"games",
+						"{{idGame}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Puzzle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db837cd2-8230-45d9-8d7e-b47bf358d5a6",
+						"exec": [
+							"var puzzleResp = JSON.parse(responseBody);",
+							"pm.environment.set(\"idPuzzle\", puzzleResp._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fenBefore\": \"2k1r3/pp4pp/1n5b/B1p2P2/2P1p3/PP1r1BP1/4K2P/1R5R w - - 2 22\",\n\t\"forcedLine\": [\"Re3+\", \"Kf2\", \"Rxf3+\", \"Kg2\", \"axb6\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/puzzles",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"puzzles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Puzzles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db837cd2-8230-45d9-8d7e-b47bf358d5a6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fenBefore\": \"2k1r3/pp4pp/1n5b/B1p2P2/2P1p3/PP1r1BP1/4K2P/1R5R w - - 2 22\",\n\t\"forcedLine\": [\"Re3+\", \"Kf2\", \"Rxf3+\", \"Kg2\", \"axb6\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/puzzles",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"puzzles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Puzzle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db837cd2-8230-45d9-8d7e-b47bf358d5a6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fenBefore\": \"2k1r3/pp4pp/1n5b/B1p2P2/2P1p3/PP1r1BP1/4K2P/1R5R w - - 2 22\",\n\t\"forcedLine\": [\"Re3+\", \"Kf2\", \"Rxf3+\", \"Kg2\", \"axb6\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/puzzles/{{idPuzzle}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"puzzles",
+						"{{idPuzzle}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Puzzle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db837cd2-8230-45d9-8d7e-b47bf358d5a6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fenBefore\": \"2k1r3/pp4pp/1n5b/B1p2P2/2P1p3/PP1r1BP1/4K2P/1R5R w - - 2 22\",\n\t\"forcedLine\": [\"Re3+\", \"Kf2\", \"Rxf3+\", \"Kg2\", \"axb6\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/puzzles/{{idPuzzle}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"puzzles",
+						"{{idPuzzle}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Puzzles 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db837cd2-8230-45d9-8d7e-b47bf358d5a6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fenBefore\": \"2k1r3/pp4pp/1n5b/B1p2P2/2P1p3/PP1r1BP1/4K2P/1R5R w - - 2 22\",\n\t\"forcedLine\": [\"Re3+\", \"Kf2\", \"Rxf3+\", \"Kg2\", \"axb6\"]\n}"
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/api/puzzles",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"puzzles"
+					]
+				}
 			},
 			"response": []
 		},
@@ -141,11 +644,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:3001/api/v1/users/:id",
+					"raw": "{{host}}:{{port}}/api/v1/users/:id",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3001",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"v1",
@@ -172,11 +675,11 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:3001/api/v1/users/:id",
+					"raw": "{{host}}:{{port}}/api/v1/users/:id",
 					"host": [
-						"localhost"
+						"{{host}}"
 					],
-					"port": "3001",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"v1",
