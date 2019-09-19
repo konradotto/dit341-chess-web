@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "cf6ba9be-5556-4bc7-b7bd-1836cd24f896",
+		"name": "CommentTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST /api/users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Anders\",\n\t\"lastName\": \"Andersson\",\n\t\"userName\": \"AndersA\",\n\t\"email\": \"andersA@live.com\",\n\t\"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users?=",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users?=",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /api/comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dac3be79-07fc-42ca-9d0e-62261e5071cd",
+						"exec": [
+							"// Save and read environment variables",
+							"",
+							"// 1) Create an environment in Postman:",
+							"// https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments",
+							"",
+							"// 2) Save reponse data in environment variable",
+							"var jsonData = pm.response.json();",
+							"var commentId = jsonData._id",
+							"pm.environment.set(\"comment_id\", commentId);",
+							"",
+							"// 3) Use variable in later requests via {{variable}}",
+							"// GET {{host}}/api/camels/{{camel_id}}",
+							"var getCamelId = pm.variables.get(\"comment_id\");",
+							"",
+							"// Test assertion examples",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment\": \"Hi, my name is Anders\",\n\t\"userName\": \"AndersA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/comments?=",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/comments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/comments?=",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/comments/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/comments/5d83ad776c73532bc45f5a48",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"comments",
+						"5d83ad776c73532bc45f5a48"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /api/comments/:id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment\": \"Hi, my name is actually Anders Andersson.\",\n\t\"userName\": \"AndersA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/comments/5d83ad776c73532bc45f5a48",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"comments",
+						"5d83ad776c73532bc45f5a48"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL /api/comments/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/comments/5d83ad776c73532bc45f5a48",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"comments",
+						"5d83ad776c73532bc45f5a48"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/timecontrols",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/timecontrols?=",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"timecontrols"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /api/timecontrols/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/timeControls/5d83af7ae7f0322c3c2190d5",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"timeControls",
+						"5d83af7ae7f0322c3c2190d5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEL /api/users",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/users/5d83ad374b2a0837aca29d59",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"5d83ad374b2a0837aca29d59"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fa346336-6c1b-4b0a-a7b9-a8cec5f943bf",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d6671e50-5823-4ea8-be50-e3d5830967f9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "ce6bc846-deac-44ff-babe-25b4e6c31e7a",
+			"key": "host",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

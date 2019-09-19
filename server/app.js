@@ -4,10 +4,13 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
+
 var usersController = require('./entities/user/userRouter');
 var ratingsController = require('./entities/rating/ratingRouter');
 var gamesController = require('./entities/game/gameRouter');
 var puzzlesController = require('./entities/puzzle/puzzleRouter');
+var timeControlsController = require('./entities/timecontrol/timecontrolRouter');
+var commentsController = require('./entities/comment/commentRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
 var port = process.env.PORT || 3000;
@@ -21,6 +24,19 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
         process.exit(1);
     }
     console.log(`Connected to MongoDB with URI: ${mongoURI}`);
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    var timeControlSlow = {
+        time: 10,
+        increment: 15
+    }
+    var timeControlFast = {
+        time: 5,
+        increment: 10
+    }
+    db.dropCollection('timecontrols');
+    db.collection('timecontrols').insert(timeControlSlow);
+    db.collection('timecontrols').insert(timeControlFast);;
 });
 
 // App configuration
@@ -35,6 +51,8 @@ app.use('/api/v1/users', usersController)
 app.use('/api/v1/ratings', ratingsController)
 app.use('/api/games', gamesController);
 app.use('/api/puzzles', puzzlesController);
+app.use('/api/comments', commentsController);
+app.use('/api/timecontrols', timeControlsController);
 
 app.get('/api', function(req, res) {
     res.json({'message': 'Welcome to your DIT341 backend ExpressJS project!'});
