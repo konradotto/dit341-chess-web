@@ -14,7 +14,7 @@
 						"id": "2fcc4836-e0f9-4be3-a418-c577dcf406e1",
 						"exec": [
 							"pm.environment.set(\"host\", \"localhost\");",
-							"pm.environment.set(\"port\", \"3000\");"
+							"pm.environment.set(\"port\", \"3001\");"
 						],
 						"type": "text/javascript"
 					}
