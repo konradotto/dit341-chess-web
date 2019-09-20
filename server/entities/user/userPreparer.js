@@ -1,8 +1,7 @@
-var bcrypt = require('bcrypt');
-var User = require('./userModel');
+var bcrypt = require('bcrypt-nodejs');
 
-function encryptPassword(req, res, next) {
-    bcrypt.hash(req.body.password, 5, function(err, hash) {
+function encryptPassword(req, _res, next) {
+    bcrypt.hash(req.body.password, null, null, function(err, hash) {
 
         if (err) {
             next(err);

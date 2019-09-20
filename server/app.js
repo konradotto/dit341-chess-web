@@ -1,11 +1,17 @@
+var dotenv = require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var cors = require('cors');
+
 var usersController = require('./entities/user/userRouter');
 var ratingsController = require('./entities/rating/ratingRouter');
-
+var gamesController = require('./entities/game/gameRouter');
+var puzzlesController = require('./entities/puzzle/puzzleRouter');
+var timeControlsController = require('./entities/timecontrol/timecontrolRouter');
+var commentsController = require('./entities/comment/commentRouter');
+var commentRelationsController = require('./entities/comment/commentRelationsRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
 var port = process.env.PORT || 3000;
@@ -19,6 +25,11 @@ mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
         process.exit(1);
     }
     console.log(`Connected to MongoDB with URI: ${mongoURI}`);
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.dropCollection('timecontrols');
+    db.collection('timecontrols').insertOne({time: 10, increment_: 15, identifier: "slow"});
+    db.collection('timecontrols').insertOne({time: 5, increment_: 10, identifier: "fast"});;
 });
 
 // App configuration
@@ -29,8 +40,17 @@ app.options('*', cors());              // Enable cross-origin resource sharing f
 app.use(cors());
 
 // Endpoints
-app.use('/api/v1/users', usersController);
-app.use('/api/v1/ratings', ratingsController);
+app.use('/api/v1/users', usersController)
+app.use('/api/v1/ratings', ratingsController)
+app.use('/api/games', gamesController);
+app.use('/api/puzzles', puzzlesController);
+app.use('/api/comments', commentsController);
+app.use('/api/timecontrols', timeControlsController);
+app.use('/api/games', commentRelationsController);
+
+app.get('/api', function(req, res) {
+    res.json({'message': 'Welcome to your DIT341 backend ExpressJS project!'});
+});
 
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
