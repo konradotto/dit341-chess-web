@@ -1,14 +1,19 @@
 <template>
   <div class="navbar-container">
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar id="navbar-container-nav" toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand href="#">{{ appTitle }}</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">Link</b-nav-item>
-          <b-nav-item href="#" disabled>Disabled</b-nav-item>
+          <b-nav-item
+            v-for="(route, index) in routes"
+            :key="index"
+            :href="route.href"
+          >
+            {{ route.name }}
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -33,12 +38,14 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex'
 
 export default {
-  data() {
-
+  computed: {
+    ...mapState([
+      'routes',
+      'appTitle'
+    ])
   }
-  
 }
 </script>

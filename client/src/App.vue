@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <NavBar/>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/camels">Camels</router-link> |
@@ -10,6 +11,19 @@
     </b-container>
   </div>
 </template>
+
+<script>
+import NavBar from '@/components/NavBar'
+
+export default {
+  components: {
+    NavBar
+  },
+  data() {
+    return {}
+  }
+}
+</script>
 
 <style>
 #app {
