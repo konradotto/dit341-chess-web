@@ -1,6 +1,6 @@
 <template>
   <div class="game-container">
-    <chessboard/>
+    <chessboard class="chessbaord"/>
   </div>
 </template>
 
