@@ -4,7 +4,8 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/camels">Camels</router-link> |
-      <router-link to="/login">LoginPage</router-link>
+      <router-link to="/login">LoginPage</router-link> |
+      <router-link to="/game">GamePage</router-link>
     </div>
     <b-container>
       <router-view/>

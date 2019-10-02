@@ -14,5 +14,9 @@ export default [
   {
     href: 'players',
     name: 'Players'
+  },
+  {
+    href: 'game',
+    name: 'ActiveGame'
   }
 ]
