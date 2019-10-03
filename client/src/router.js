@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Home from './views/Home.vue'
-import Camels from './views/Camels.vue'
 import LoginPage from './views/LoginPage.vue'
 import GamePage from './views/GamePage.vue'
 
@@ -16,11 +15,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
-    },
-    {
-      path: '/camels',
-      name: 'camels',
-      component: Camels
     },
     {
       path: '/login',

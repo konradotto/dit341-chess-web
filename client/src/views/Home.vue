@@ -1,20 +1,8 @@
 <template>
   <div>
-    <b-jumbotron header="DIT341 Frontend" lead="Welcome to Your DIT341 Frontend Vue.js App">
-      <p>Message from the server: {{ message }}</p>
-      <b-button variant="primary" href="/camels">List Camels</b-button>
+    <b-jumbotron header="ChessMate" lead="Built with node.js and vue.js">
+      <p> {{message}} </p>
     </b-jumbotron>
-    <b-container>
-      <b-row>
-        <b-col><h1>Responsive BootstrapVue: <a href="https://bootstrap-vue.js.org/docs/components/layout/">Layout and Grid System</a></h1></b-col>
-      </b-row>
-      <!-- Mobile (< 768px): stack columns by making one half-width and one full-width
-           Desktop (>= 768px): keep both columns in same row in 4:8 ratio -->
-      <b-row>
-        <b-col class="example-col" cols="6" md="4">Message from the server</b-col>
-        <b-col class="example-col" cols="12" md="8">{{ message }}</b-col>
-      </b-row>
-    </b-container>
   </div>
 </template>
 
@@ -33,13 +21,17 @@ export default {
     this.getMessage()
   },
   methods: {
+
     getMessage() {
       Api.get('/')
         .then(response => {
-          this.message = response.data.message
+          if (response.status === 200) {
+            this.message = 'Connected to backend'
+          }
         })
         .catch(error => {
-          this.message = error
+          console.log(error)
+          this.message = 'Not connected to backend'
         })
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-container">
+  <div class="navbar-container" >
     <b-navbar id="navbar-container-nav" toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="#">{{ appTitle }}</b-navbar-brand>
 
