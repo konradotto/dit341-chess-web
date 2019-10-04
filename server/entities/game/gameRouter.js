@@ -56,6 +56,19 @@ let updateGame = function(req, res, next) {
     })
 };
 
+// Patch the PGN of a game specified by its ID
+let patchGame = function(req, res, next) {
+    let id = req.params.id;
+    // patch teh game with the given id using the request body
+    Game.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, game) {
+        if (err) { return next(err); }
+        if (game === null) {
+            return res.status(404).json({'message': 'Game not found'});
+        }
+        res.json(game);
+    })
+}
+
 // Deliver error 405 'Method Not Allowed' for all methods not defined previously
 let methodNotAllowed = function(req, res, next) {
     res.set('Allow', ['POST', 'GET', 'UPDATE']);
@@ -69,6 +82,7 @@ router.post('/', createGame);
 router.get('/', getGames);
 router.get('/:id', getGame);
 router.put('/:id', updateGame);
+router.patch('/:id', patchGame);
 router.all('/', methodNotAllowed);
 
 module.exports = router;

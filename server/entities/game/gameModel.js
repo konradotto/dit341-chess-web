@@ -15,7 +15,7 @@ let gameSchema = new Schema({
     date: { type: Date, default: Date.now },
     white: { type: String, required: true },    // id of the player playing as white
     black: { type: String, required: true },    // id of the player playing as black
-    result: { type: String, required: true },                    // result of the game (e.g. 1-0, 0-1, 0.5-0.5) empty ("") until end of game
+    result: { type: String, required: true },                    // result of the game (e.g. 1-0, 0-1, 0.5-0.5) empty (" ") until end of game
     gameId: { type: Number}
 });
 
