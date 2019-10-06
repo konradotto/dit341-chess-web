@@ -1,7 +1,7 @@
 export default [
   {
     href: 'login',
-    name: 'LogIn'
+    name: 'Log in'
   },
   {
     href: 'rankings',

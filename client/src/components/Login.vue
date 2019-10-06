@@ -1,29 +1,28 @@
 <template>
   <div class="login-container">
-    <b-form @submit="tryLogin" v-if="show">
-      <b-form-group id="input-group-1" label="Username:" label-for="input-1" description="Please enter your username">
+    <b-form @submit="loginPressed">
+      <b-form-group id="input-group-1">
         <b-form-input
-          id="input-1"
-          v-model="login.username"
+          v-model="username"
           type="text"
           required
-          placeholder="Enter username"
+          placeholder="Email/Username"
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-2" label="Password:" label-for="input-2" description="Please enter your password">
+      <b-form-group id="input-group-2">
         <b-form-input
-          id="input-2"
-          v-model="login.password"
+          v-model="password"
           type="password"
           required
-          placeholder="Enter password"
+          placeholder="Password"
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Login</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary"> Login </b-button>
+      <b-button v-on:click="createAccountPressed"> Create account </b-button>
     </b-form>
+
   </div>
 </template>
 
@@ -31,27 +30,19 @@
 export default {
   data() {
     return {
-      login: {
-        username: '',
-        password: ''
-      },
-      show: true
+      password: '',
+      username: ''
     }
   },
+
   methods: {
-    tryLogin() {
-      alert(JSON.stringify(this.login))
+    loginPressed(event) {
+      event.preventDefault() // Prevents refresh (Default form behaviour)
+
+      // Make API call and login and eventually change state to logged in
+      this.$store.commit('setUser', this.username)
     },
-    onReset(evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.login.username = ''
-      this.login.password = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
+    createAccountPressed(e) {
     }
   }
 }
