@@ -40,7 +40,8 @@ export default {
       event.preventDefault() // Prevents refresh (Default form behaviour)
 
       // Make API call and login and eventually change state to logged in
-      this.$store.commit('setUser', this.username)
+      let fakeId = 'ZSdgZsjd'
+      this.$store.commit('setUser', fakeId)
     },
     createAccountPressed(e) {
     }
