@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { Api } from '@/Api'
+
 export default {
   data() {
     return {
@@ -39,9 +41,16 @@ export default {
     loginPressed(event) {
       event.preventDefault() // Prevents refresh (Default form behaviour)
 
-      // Make API call and login and eventually change state to logged in
-      let fakeId = 'ZSdgZsjd'
-      this.$store.commit('setUser', fakeId)
+      Api.post('/users/login', { username: this.username, password: this.password })
+        .then((resp) => {
+          console.log(resp.data)
+          alert('User logged in, id: ' + resp.data.id)
+          this.$store.commit('setUser', resp.data.id)
+        })
+        .catch(err => {
+          console.log(err.response)
+          alert(err.response.data.message)
+        })
     },
     createAccountPressed(e) {
     }
