@@ -8,9 +8,9 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item
-            v-for="(route, index) in routes"
-            :key="index"
-            :href="route.href"
+            v-for="route in this.$router.options.routes"
+            :key="route.name"
+            :href="route.path"
           >
             {{ route.name }}
           </b-nav-item>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import Router from '@/router'
 import { mapState } from 'vuex'
 
 export default {
