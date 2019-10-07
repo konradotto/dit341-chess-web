@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <b-row>
       <b-col cols="2" offset="5" md="4" offset-md="4">
-        <Login v-if="loginFormVisible"/>
-        <Signup v-if="!loginFormVisible"/>
+        <LoginForm v-if="loginFormVisible"/>
+        <SignupForm v-if="!loginFormVisible"/>
         <button v-on:click="showSignUpForm" id=createAccountBtn>{{switchFormButtonCaption}}</button>
       </b-col>
     </b-row>
@@ -11,13 +11,13 @@
 </template>
 
 <script>
-import Login from '@/components/Login'
-import Signup from '@/components/Signup'
+import LoginForm from '@/components/auth/LoginForm'
+import SignupForm from '@/components/auth/SignupForm'
 
 export default {
   components: {
-    Login,
-    Signup
+    LoginForm,
+    SignupForm
   },
   data() {
     return {
