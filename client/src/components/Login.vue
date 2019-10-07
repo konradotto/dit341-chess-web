@@ -20,7 +20,6 @@
       </b-form-group>
 
       <b-button type="submit" variant="primary"> Login </b-button>
-      <b-button v-on:click="createAccountPressed"> Create account </b-button>
     </b-form>
 
   </div>
@@ -51,8 +50,6 @@ export default {
           console.log(err.response)
           alert(err.response.data.message)
         })
-    },
-    createAccountPressed(e) {
     }
   }
 }
@@ -60,6 +57,9 @@ export default {
 
 <style scoped>
 .btn {
-    margin: 0em 2em;
+  width: 100%;
+  margin-left: 0;
+  background: green;
+  border: none;
 }
 </style>
