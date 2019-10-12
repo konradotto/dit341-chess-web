@@ -27,6 +27,7 @@
 
 <script>
 import { Api } from '@/Api'
+import data from '@/data'
 
 export default {
   data() {
@@ -42,9 +43,8 @@ export default {
 
       Api.post('/users/login', { username: this.username, password: this.password })
         .then((resp) => {
-          console.log(resp.data)
-          alert('User logged in, id: ' + resp.data.id)
-          this.$store.commit('setUser', resp.data.id)
+          data.setUser(resp.data.id)
+          this.$router.push('profile')
         })
         .catch(err => {
           console.log(err.response)

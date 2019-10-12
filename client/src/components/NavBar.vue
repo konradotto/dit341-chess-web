@@ -1,7 +1,7 @@
 <template>
   <div class="navbar-container" >
     <b-navbar id="navbar-container-nav" toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="#">{{ appTitle }}</b-navbar-brand>
+      <b-navbar-brand href="#"> ChessMate </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -36,16 +36,3 @@
     </b-navbar>
   </div>
 </template>
-
-<script>
-import { mapState } from 'vuex'
-
-export default {
-  computed: {
-    ...mapState([
-      'routes',
-      'appTitle'
-    ])
-  }
-}
-</script>

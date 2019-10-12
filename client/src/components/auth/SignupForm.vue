@@ -80,7 +80,6 @@ export default {
       Api.post('/users', user)
         .then((resp) => {
           alert('Account created, user-id: ' + resp.data._id) // Will remove in production
-          this.$store.commit('setUser', resp.data._id)
         })
         .catch(err => {
           console.log(err.response)
