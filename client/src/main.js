@@ -7,7 +7,7 @@ import './assets/sass/index.sass'
 
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './data'
 
 Vue.use(BootstrapVue)
 
