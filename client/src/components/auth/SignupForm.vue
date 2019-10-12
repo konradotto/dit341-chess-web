@@ -54,6 +54,8 @@
 
 <script>
 import { Api } from '@/Api'
+import data from '@/data'
+
 export default {
   data() {
     return {
@@ -79,7 +81,8 @@ export default {
 
       Api.post('/users', user)
         .then((resp) => {
-          alert('Account created, user-id: ' + resp.data._id) // Will remove in production
+          data.setUser(resp.data._id)
+          this.$router.push('profile')
         })
         .catch(err => {
           console.log(err.response)

@@ -1,10 +1,18 @@
 <template>
   <div class="container-fluid">
       <h1 class=profile-title> User profile </h1>
-      <p> {{'Username: ' + userName}} </p>
-      <p> {{'First name: ' + firstName}} </p>
-      <p> {{'Last name: ' + lastName}} </p>
-      <p> {{'email: ' + email}} </p>
+      <h3> Display name </h3>
+      <p> {{userName}} </p>
+
+      <h3> First name </h3>
+      <p> {{firstName}} </p>
+
+      <h3> Last name </h3>
+      <p> {{lastName}} </p>
+
+      <h3> Email </h3>
+      <p> {{email}} </p>
+
       <button v-on:click="logOut"> Log out </button>
   </div>
 </template>
@@ -23,7 +31,7 @@ export default {
     }
   },
   created() {
-    const userId = data.getUser()
+    let userId = data.getUser()
     if (userId) {
       Api.get('/users/' + userId)
         .then((resp) => {
@@ -41,8 +49,8 @@ export default {
   },
   methods: {
     logOut() {
-      data.setUser(null)
-      this.$router.push('login');
+      data.setUser()
+      this.$router.push('login')
     }
   }
 }
@@ -50,7 +58,7 @@ export default {
 
 <style scoped>
 .profile-title {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
 }
 
 button {
@@ -58,5 +66,14 @@ button {
   border: none;
   border-radius: 5px;
   width: 100px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+p {
+  margin-top: -10px;
 }
 </style>
