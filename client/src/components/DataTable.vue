@@ -1,6 +1,6 @@
 <template>
   <div class="datatable-container">
-    <h1>{{ type }} in our Database</h1>
+    <h1>{{ type }}s in our Database</h1>
     <b-table
       striped
       hover
@@ -11,7 +11,9 @@
         <router-link :to="`/data/${type}/${data.index}`">{{ data.value }}</router-link>
       </template>
     </b-table>
-    <b-button variant="outline-primary" @click="createElement">Add {{ type }}</b-button>
+    <router-link :to="route">
+      <b-button variant="outline-primary" @click="createElement">Add {{ type }}</b-button>
+    </router-link>
     <b-button v-if="elementSelected">Remove</b-button>
   </div>
 </template>
@@ -20,6 +22,7 @@
 export default {
   props: {
     type: String,
+    route: String,
     data: Array
   },
   data() {

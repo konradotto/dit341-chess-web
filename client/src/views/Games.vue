@@ -1,14 +1,12 @@
 <template>
   <div>
-    <GameTable type="Games" :data="games" />
+    <GameTable type="Game" :data="games" :route="route" />
   </div>
 </template>
 
 <script>
 import GameTable from '@/components/DataTable.vue'
-import axios from 'axios'
-
-const API_URL = 'http://localhost:3000'
+import { Api } from '@/Api'
 
 export default {
   components: {
@@ -16,16 +14,27 @@ export default {
   },
   data() {
     return {
+      route: '/game_data',
       games: []
     }
   },
   mounted() {
-    axios
-      .get(`${API_URL}/api/games`)
-      // .get('https://opentdb.com/api.php?amount=10&type=multiple')
-      .then(jsonData => {
-        this.games = jsonData.data.games
-      })
+    this.getGames()
+  },
+  methods: {
+    getGames() {
+      Api.get('/games')
+        .then(reponse => {
+          this.games = reponse.data.games
+        })
+        .catch(error => {
+          this.games = []
+          console.log(error)
+        })
+        .then(() => {
+          // This code is always executed (after success or error).
+        })
+    }
   }
 }
 </script>

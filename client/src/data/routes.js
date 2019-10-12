@@ -18,5 +18,9 @@ export default [
   {
     href: 'game',
     name: 'ActiveGame'
+  }, 
+  {
+    href: 'game_data',
+    name: 'GameData'
   }
 ]

@@ -22,7 +22,7 @@
       <b-form-group >
         <b-form-input
           v-model="email"
-          type="text"
+          type="email"
           required
           placeholder="Email"
         ></b-form-input>

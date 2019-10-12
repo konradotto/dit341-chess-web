@@ -35,8 +35,8 @@ export default new Router({
       component: Games
     },
     {
-      path: '/data/:type/:id',
-      name: 'gameData',
+      path: '/game_data',
+      name: 'GameData',
       component: GameData
     },
     {

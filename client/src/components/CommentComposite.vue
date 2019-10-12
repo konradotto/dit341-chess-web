@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     getComments() {
+      // TODO: use actual game id
       // 1 Is just a placeholder for the actual gameId you'll eventually get from the actual game page.
       Api.get('games/1/comments')
         .then(reponse => {

@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <b-row>
-      <b-col cols="8" offset="2" md="6" offset-md="3">
+      <b-col cols="6" offset="3" md="4" offset-md="4">
         <Game/>
       </b-col>
     </b-row>
