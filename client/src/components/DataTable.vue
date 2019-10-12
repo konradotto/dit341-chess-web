@@ -7,8 +7,8 @@
       :items="data"
       @select="selectElement"
     >
-      <template v-slot:cell(name)="data">
-        <router-link :to="`/data/${type}/${data[index]._id}`">{{ data.value }}</router-link>
+      <template v-slot:cell(name)="datav">
+        <router-link :to="`/data/${type}/${data.index}`">{{ data.value }}</router-link>
       </template>
     </b-table>
     <b-button variant="outline-primary" @click="createElement">Add {{ type }}</b-button>

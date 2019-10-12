@@ -1,8 +1,8 @@
 <template>
     <div class="comment-list">
-      <h1>List of {{ comments.length }} comments</h1>
+      <h1 class="comment-header">List of {{ comments.length }} comments</h1>
       <b-list-group>
-        <comment-item v-for="comment in comments" :key="comment.userName" :comment="comment" @edit-comment="editComment" @delete-comment="deleteComment"></comment-item>
+        <comment-item v-for="comment in comments" :key="comment.userName" :comment="comment" @edit-comment="editComment" @delete-comment="deleteComment">{{comment}}</comment-item>
       </b-list-group>
       <div class="comment-box">
           <textarea v-model="message" placeholder="add multiple lines"></textarea>

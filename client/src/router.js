@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import LoginPage from './views/LoginPage.vue'
 import GamePage from './views/GamePage.vue'
 import Games from './views/Games.vue'
+import GameData from './views/GameData.vue'
 
 Vue.use(Router)
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/games',
       name: 'games',
       component: Games
+    },
+    {
+      path: '/data/:type/:id',
+      name: 'gameData',
+      component: GameData
     }
   ]
 })
