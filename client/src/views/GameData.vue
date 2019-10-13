@@ -5,7 +5,7 @@
         <b-form-select
           id="input-1"
           v-model="game.white"
-          :options="users"
+          :options="usernames"
           required
         ></b-form-select>
       </b-form-group>
@@ -14,7 +14,7 @@
         <b-form-select
           id="input-2"
           v-model="game.black"
-          :options="users"
+          :options="usernames"
           required
         ></b-form-select>
       </b-form-group>
@@ -97,6 +97,7 @@ export default {
     }
     return {
       users: [],
+      usernames: [],
       game
     }
   },
@@ -115,6 +116,12 @@ export default {
         })
         .then(() => {
           // This code is always executed (after success or error).
+          // update usernames
+          this.usernames = []
+          for (let i in this.users) {
+            let user = this.users[i]
+            this.usernames.push(user.userName)
+          }
         })
     },
     tryPostGame() {
