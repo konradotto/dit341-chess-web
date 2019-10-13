@@ -1,10 +1,10 @@
 <template>
   <div class="game-data-container">
-    <b-form @submit="tryPostGame">
+    <b-form @submit.prevent>
       <b-form-group id="input-group-1" label="White:" label-for="input-1" description="Playing White">
         <b-form-select
           id="input-1"
-          v-model="game.white"
+          v-model="white"
           :options="usernames"
           required
         ></b-form-select>
@@ -13,7 +13,7 @@
       <b-form-group id="input-group-2" label="Black:" label-for="input-2" description="Playing Black">
         <b-form-select
           id="input-2"
-          v-model="game.black"
+          v-model="black"
           :options="usernames"
           required
         ></b-form-select>
@@ -73,7 +73,7 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Create Game</b-button>
+      <b-button type="submit" variant="primary" @click="tryPostGame">Create Game</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
@@ -89,20 +89,39 @@ export default {
       event: 'Single Game',
       site: 'ChessMate.com',
       round: '',
-      date: Date.now,
+      date: Date.now(),
       white: '',
       black: '',
       result: '',
       gameId: 0
     }
     return {
+      white: '',
+      black: '',
       users: [],
       usernames: [],
       game
     }
   },
   mounted() {
+    console.log('Component mounted.')
     this.getPlayers()
+  },
+  watch: {
+    white: function (val) {
+      for (let i in this.users) {
+        if (this.users[i].userName === val) {
+          this.game.white = this.users[i]._id
+        }
+      }
+    },
+    black: function (val) {
+      for (let i in this.users) {
+        if (this.users[i].userName === val) {
+          this.game.black = this.users[i]._id
+        }
+      }
+    }
   },
   methods: {
     getPlayers() {
@@ -126,8 +145,11 @@ export default {
     },
     tryPostGame() {
       if (this.checkGame()) {
+        console.log('All requirements met to post a game.')
         this.postGame()
         this.resetGame()
+      } else {
+        console.log('Not all requirements have been met to post a game.')
       }
     },
     resetGame() {
@@ -148,13 +170,19 @@ export default {
     checkGame() {
       // Check whether all entries are valid, otherwise mark them as not valid
       let valid = true
+      valid = this.checkPGN() ? valid : false
       valid = this.checkResult() ? valid : false
 
       return valid
     },
+    checkPGN() {
+      // check whether the PGN is a valid chess PGN
+      // outside the scope of this course
+      return true
+    },
     checkResult() {
       let validResults = [' ', '1-0', '0-1', '0.5-0.5']
-      return this.game.result in validResults
+      return validResults.indexOf(this.game.result) >= 0
     },
     postGame() {
       Api.post('/games', this.game)

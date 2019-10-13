@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" id="profile-container">
       <h1 class=profile-title> User profile </h1>
       <h3> Display name </h3>
       <p> {{userName}} </p>

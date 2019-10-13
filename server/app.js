@@ -42,14 +42,14 @@ app.use(cors());
 // Endpoints
 app.use('/api/v1/users', usersController)
 app.use('/api/v1/ratings', ratingsController)
-app.use('/api/games', gamesController);
-app.use('/api/puzzles', puzzlesController);
-app.use('/api/comments', commentsController);
-app.use('/api/timecontrols', timeControlsController);
-app.use('/api/games', commentRelationsController);
+app.use('/api/v1/games', gamesController);
+app.use('/api/v1/puzzles', puzzlesController);
+app.use('/api/v1/comments', commentsController);
+app.use('/api/v1/timecontrols', timeControlsController);
+app.use('/api/v1/games', commentRelationsController);
 
-app.get('/api', function(req, res) {
-    res.json({'message': 'Welcome to your DIT341 backend ExpressJS project!'});
+app.get('/api/v1', function(req, res) {
+    res.json({'message': 'Welcome to our DIT341 backend ExpressJS project!'});
 });
 
 // Error handler (i.e., when exception is thrown) must be registered last
