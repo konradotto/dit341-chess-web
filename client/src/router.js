@@ -40,6 +40,11 @@ export default new Router({
       component: GameData
     },
     {
+      path: '/game_data/:id',
+      name: 'GameData',
+      component: GameData
+    },
+    {
       path: '/profile',
       name: 'Profile',
       component: Profile

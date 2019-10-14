@@ -84,17 +84,7 @@ import { Api } from '@/Api'
 
 export default {
   data() {
-    let game = {
-      PGN: '',
-      event: 'Single Game',
-      site: 'ChessMate.com',
-      round: '',
-      date: Date.now(),
-      white: '',
-      black: '',
-      result: '',
-      gameId: 0
-    }
+    let game = this.resetGame()
     return {
       white: '',
       black: '',
@@ -104,8 +94,14 @@ export default {
     }
   },
   mounted() {
-    console.log('Component mounted.')
+    console.log('GameData mounted.')
+
     this.getPlayers()
+    if (this.$route.params.id) {
+      this.getGame()
+    }
+
+    console.log(this.game)
   },
   watch: {
     white: function (val) {
@@ -143,6 +139,30 @@ export default {
           }
         })
     },
+    getGame() {
+      Api.get(`/games/${this.$route.params.id}`)
+        .then(response => {
+          console.log(response.data)
+          for (let i in this.users) {
+            let user = this.users[i]
+            if (user._id === response.data.white) {
+              this.white = user.userName
+            }
+            if (user._id === response.data.black) {
+              this.black = user.userName
+            }
+          }
+          this.game = response.data
+        })
+        .catch(error => {
+          this.game = this.resetGame()
+          console.log(error)
+        })
+        .then(() => {
+          // This code is always executed (after success or error).
+        })
+    },
+
     tryPostGame() {
       if (this.checkGame()) {
         console.log('All requirements met to post a game.')
@@ -153,19 +173,20 @@ export default {
       }
     },
     resetGame() {
-      this.game = {
+      // load the players whenever the game is being reset
+      this.getPlayers()
+
+      return {
         PGN: '',
-        event: '',
-        site: '',
+        event: 'Single Game',
+        site: 'ChessMate.com',
         round: '',
-        date: Date.now,
+        date: Date.now(),
         white: '',
         black: '',
         result: '',
         gameId: 0
       }
-      // load the players whenever the game is being reset
-      this.getPlayers()
     },
     checkGame() {
       // Check whether all entries are valid, otherwise mark them as not valid

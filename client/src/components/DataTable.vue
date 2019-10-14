@@ -2,19 +2,26 @@
   <div class="datatable-container">
     <h1>{{ type }}s in our Database</h1>
     <b-table
+      sticky-header="1000px"
       striped
       hover
       :items="data"
-      @select="selectElement"
+      selectable
+      select-mode=single
+      selected-variant="active"
+      @row-selected="onRowSelected"
     >
-      <template v-slot:cell(name)="datav">
-        <router-link :to="`/data/${type}/${data.index}`">{{ data.value }}</router-link>
+      <template v-slot:cell(selected)="
+      { selectedElement }">
       </template>
     </b-table>
-    <router-link :to="route">
-      <b-button variant="outline-primary" @click="createElement">Add {{ type }}</b-button>
-    </router-link>
-    <b-button v-if="elementSelected">Remove</b-button>
+    <div id="btn-container">
+      <router-link :to="route">
+        <b-button variant="outline-primary" @click="createElement()">Add {{ type }}</b-button>
+      </router-link>
+      <div id="btn-spacer" :v-if="elementSelected"/>
+      <b-button variant="outline-primary" v-if="elementSelected" @click="editElement">Edit</b-button>
+    </div>
   </div>
 </template>
 
@@ -27,15 +34,31 @@ export default {
   },
   data() {
     return {
-      elementSelected: false
+      elementSelected: false,
+      selectedElement: {}
     }
   },
-  method: {
+  methods: {
+    onRowSelected(item) {
+      console.log(item)
+      if (item.length === 0) {
+        this.selectedElement = {}
+        this.elementSelected = false
+      } else {
+        this.elementSelected = true
+        this.selectedElement = item[0]
+      }
+    },
     selectElement() {
+      console.log('element selected')
       this.elementSelected = true
     },
     createElement() {
       this.elementSelected = false
+    },
+    editElement() {
+      this.elementSelected = false
+      this.$router.push({ path: `/${this.type.toLowerCase()}_data/${this.selectedElement._id}` })
     }
   }
 }

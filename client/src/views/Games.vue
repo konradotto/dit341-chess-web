@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <GameTable type="Game" :data="games" :route="route" />
   </div>
 </template>
