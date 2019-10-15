@@ -12,6 +12,7 @@
           <b-nav-item v-on:click="gotoProfile">Profile</b-nav-item>
           <b-nav-item v-on:click="gotoGame">Game</b-nav-item>
           <b-nav-item v-on:click="gotoGames">Games</b-nav-item>
+          <b-nav-item v-on:click="gotoPuzzles">Puzzles</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
@@ -25,7 +26,8 @@ export default {
     gotoHomePage() { this.$router.push('/') },
     gotoProfile() { this.$router.push('profile') },
     gotoGame() { this.$router.push('/game') },
-    gotoGames() { this.$router.push('/games') }
+    gotoGames() { this.$router.push('/games') },
+    gotoPuzzles() { this.$router.push('/puzzles') }
   }
 }
 </script>

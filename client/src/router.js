@@ -7,6 +7,7 @@ import GamePage from './views/GamePage.vue'
 import Games from './views/Games.vue'
 import GameData from './views/GameData.vue'
 import Profile from './views/Profile.vue'
+import Puzzles from './views/Puzzles.vue'
 
 Vue.use(Router)
 
@@ -43,6 +44,11 @@ export default new Router({
       path: '/game_data/:id',
       name: 'GameData',
       component: GameData
+    },
+    {
+      path: '/puzzles',
+      name: 'Puzzles',
+      component: Puzzles
     },
     {
       path: '/profile',
