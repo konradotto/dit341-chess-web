@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="comment-container">
       <b-list-group horizontal>
         <b-list-group-item>
             {{ comment.userName }}:  {{ comment.comment }}
