@@ -21,6 +21,10 @@
       </router-link>
       <div id="btn-spacer" :v-if="elementSelected"/>
       <b-button variant="outline-primary" v-if="elementSelected" @click="editElement">Edit</b-button>
+      <div id="btn-spacer" :v-if="elementSelected"/>
+      <b-button variant="outline-danger" v-if="elementSelected" @click="deleteElement">Delete</b-button>
+      <div id="btn-spacer"/>
+      <b-button variant="outline-danger" @click="deleteCollection">Delete All</b-button>
     </div>
   </div>
 </template>
@@ -30,7 +34,9 @@ export default {
   props: {
     type: String,
     route: String,
-    data: Array
+    data: Array,
+    delete: Function,
+    deleteAll: Function
   },
   data() {
     return {
@@ -59,6 +65,12 @@ export default {
     editElement() {
       this.elementSelected = false
       this.$router.push({ path: `/${this.type.toLowerCase()}_data/${this.selectedElement._id}` })
+    },
+    deleteElement() {
+      this.delete(this.selectedElement)
+    },
+    deleteCollection() {
+      this.deleteAll()
     }
   }
 }
