@@ -47,13 +47,15 @@ export default {
   data() {
     return {
       existingPuzzle: false,
-      puzzle: Object,
+      puzzle: {
+        fenBefore: '',
+        forcedLine: ''
+      },
       submitAction: 'Create Puzzle'
     }
   },
   mounted() {
     console.log('PuzzleData mounted.')
-    this.resetForm()
 
     if (this.$route.params.id) {
       console.log(`id: ${this.$route.params.id}`)
@@ -70,16 +72,17 @@ export default {
         fenBefore: '',
         forcedLine: ''
       }
+      this.$router.push({ path: `/puzzle_data` })
     },
     onSubmit() {
       console.log('Form submitted')
       if (this.existingPuzzle) {
-          console.log('putting')
-          this.tryPutPuzzle()
-        } else {
-          console.log('posting')
-          this.tryPostPuzzle()
-        }
+        console.log('putting')
+        this.tryPutPuzzle()
+      } else {
+        console.log('posting')
+        this.tryPostPuzzle()
+      }
     },
     getPuzzle() {
       Api.get(`/puzzles/${this.$route.params.id}`)
@@ -139,7 +142,7 @@ export default {
       return this.checkFen() ? this.checkLine() : false
     },
     checkFen() {
-      // check whether the notation of the given FEN is valid 
+      // check whether the notation of the given FEN is valid
       // outside project scope
       return true
     },

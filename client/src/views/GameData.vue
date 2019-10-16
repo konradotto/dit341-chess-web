@@ -9,6 +9,7 @@
         <b-form-select
           id="input-0"
           v-model="action"
+          selected="actions[0]"
           :options="actions"
           required
         ></b-form-select>
@@ -72,28 +73,30 @@
       <b-form-group v-if="edit" id="input-group-7" label="Date:" label-for="input-7" description="Please enter the date">
         <b-form-input
           id="input-7"
-          v-model="game.date"
+          v-model="date"
           type="date"
+          required
         ></b-form-input>
       </b-form-group>
 
       <b-form-group v-if="edit" id="input-group-8" label="Result:" label-for="input-8" description="Please enter the result">
-        <b-form-input
+        <b-form-select
           id="input-8"
           v-model="game.result"
-          type="text"
-          placeholder="1-0"
-        ></b-form-input>
+          :options="validResults"
+          required
+        ></b-form-select>
       </b-form-group>
 
       <b-button type="submit" variant="primary" @click="onSubmit">{{ submitAction }}</b-button>
-      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="reset" variant="danger" @click="resetForm">Reset</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
 import { Api } from '@/Api'
+import dateFormat from 'dateformat'
 
 export default {
   data() {
@@ -104,7 +107,9 @@ export default {
       black: '',
       users: [],
       usernames: [],
+      date: '',
       actions: { edit: 'edit', patch: 'patch' },
+      validResults: [' ', '1-0', '0-1', '0.5-0.5'],
       game: Object,
       existingGame: false,
       submitAction: 'Create Game'
@@ -112,14 +117,13 @@ export default {
   },
   mounted() {
     console.log('GameData mounted.')
-    this.resetForm()
 
     this.getPlayers()
     if (this.$route.params.id) {
       console.log(`id: ${this.$route.params.id}`)
       this.getGame()
-      this.existingGame = true
-      this.submitAction = 'Update Game'
+    } else {
+      this.resetForm()
     }
 
     console.log(this.game)
@@ -183,6 +187,9 @@ export default {
             }
           }
           this.game = response.data
+          this.date = dateFormat(this.game.date, 'yyyy-mm-dd')
+          this.existingGame = true
+          this.submitAction = 'Update Game'
         })
         .catch(error => {
           this.game = this.resetForm()
@@ -237,36 +244,30 @@ export default {
 
       this.white = ''
       this.black = ''
+      this.date = dateFormat(new Date(), 'yyyy-mm-dd')
 
       this.game = {
         PGN: '',
         event: 'Single Game',
         site: 'ChessMate.com',
         round: '',
-        date: Date.now(),
+        date: this.date,
         white: '',
         black: '',
         result: '',
         gameId: 0
       }
+      this.$router.push({ path: `/game_data` })
     },
     checkGame() {
       // Check whether all entries are valid, otherwise mark them as not valid
-      let valid = true
-      valid = this.checkPGN() ? valid : false
-      valid = this.checkResult() ? valid : false
-
-      return valid
+      return this.checkPGN()
     },
     checkPGN() {
       // check whether the PGN is a valid chess PGN
       // outside the scope of this course
       // could be done using chess.js
       return true
-    },
-    checkResult() {
-      let validResults = [' ', '1-0', '0-1', '0.5-0.5']
-      return validResults.indexOf(this.game.result) >= 0
     },
     postGame() {
       Api.post('/games', this.game)
