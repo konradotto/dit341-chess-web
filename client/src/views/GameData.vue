@@ -282,7 +282,7 @@ export default {
     updateGame() {
       Api.put(`/games/${this.game._id}`, this.game)
         .then(response => {
-          // What are we gonna doe when a game is successfully posted?
+          // What are we gonna doe when a game is successfully updated?
           console.log('Game updated in the database.')
           this.resetForm()
         })
