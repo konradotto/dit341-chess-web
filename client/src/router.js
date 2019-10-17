@@ -9,6 +9,8 @@ import GameData from './views/GameData.vue'
 import Profile from './views/Profile.vue'
 import Puzzles from './views/Puzzles.vue'
 import PuzzleData from './views/PuzzleData.vue'
+import MyGames from './views/MyGames.vue'
+import PlayPage from './views/Play.vue'
 
 Vue.use(Router)
 
@@ -20,6 +22,11 @@ export default new Router({
       path: '/',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/mygames',
+      name: 'My games',
+      component: MyGames
     },
     {
       path: '/login',
@@ -70,6 +77,11 @@ export default new Router({
       path: '/profile',
       name: 'Profile',
       component: Profile
+    },
+    {
+      path: '/play',
+      name: 'Play',
+      component: PlayPage
     }
   ]
 })

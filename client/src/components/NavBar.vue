@@ -10,9 +10,11 @@
        <b-navbar-nav>
           <b-nav-item v-on:click="gotoHomePage">Home</b-nav-item>
           <b-nav-item v-on:click="gotoProfile">Profile</b-nav-item>
+          <b-nav-item v-on:click="gotoMyGames">Played games</b-nav-item>
           <b-nav-item v-on:click="gotoGame">Game</b-nav-item>
           <b-nav-item v-on:click="gotoGames">Games</b-nav-item>
           <b-nav-item v-on:click="gotoPuzzles">Puzzles</b-nav-item>
+          <b-nav-item v-on:click="gotoLogin">Login</b-nav-item>
         </b-navbar-nav>
 
       </b-collapse>
@@ -24,6 +26,8 @@
 export default {
   methods: {
     gotoHomePage() { this.$router.push('/') },
+    gotoMyGames() { this.$router.push('/mygames') },
+    gotoLogin() { this.$router.push('/login') },
     gotoProfile() { this.$router.push('profile') },
     gotoGame() { this.$router.push('/game') },
     gotoGames() { this.$router.push('/games') },
