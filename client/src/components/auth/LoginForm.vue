@@ -43,7 +43,7 @@ export default {
 
       Api.post('/users/login', { username: this.username, password: this.password })
         .then((resp) => {
-          data.setUser(resp.data.id)
+          data.setUser(resp.data.userName)
           this.$router.push('profile')
         })
         .catch(err => {

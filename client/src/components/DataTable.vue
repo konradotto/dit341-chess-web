@@ -20,6 +20,8 @@
         <b-button variant="outline-primary" @click="createElement()">Add {{ type }}</b-button>
       </router-link>
       <div id="btn-spacer" :v-if="elementSelected"/>
+      <b-button v-if="canView()" variant="outline-primary" @click="showElement()">Show</b-button>
+      <div id="btn-spacer" :v-if="elementSelected"/>
       <b-button variant="outline-primary" v-if="elementSelected" @click="editElement">Edit</b-button>
       <div id="btn-spacer" :v-if="elementSelected"/>
       <b-button variant="outline-danger" v-if="elementSelected" @click="deleteElement">Delete</b-button>
@@ -34,6 +36,7 @@ export default {
   props: {
     type: String,
     route: String,
+    viewRoute: String,
     data: Array,
     delete: Function,
     deleteAll: Function
@@ -45,6 +48,12 @@ export default {
     }
   },
   methods: {
+    canView() {
+      return (this.elementSelected && this.viewRoute)
+    },
+    showElement() {
+      this.$router.push({ path: `${this.viewRoute}/${this.selectedElement._id}` })
+    },
     onRowSelected(item) {
       console.log(item)
       if (item.length === 0) {

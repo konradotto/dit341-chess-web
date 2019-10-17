@@ -32,6 +32,11 @@ export default new Router({
       component: GamePage
     },
     {
+      path: '/game/:id',
+      name: 'Game',
+      component: GamePage
+    },
+    {
       path: '/games',
       name: 'Games',
       component: Games

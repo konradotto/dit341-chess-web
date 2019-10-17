@@ -2,7 +2,7 @@
     <div class="comment-list">
       <h1 class="comment-header">List of {{ comments.length }} comments</h1>
       <b-list-group>
-        <comment-item v-for="comment in comments" :key="comment.userName" :comment="comment" @edit-comment="editComment" @delete-comment="deleteComment">{{comment}}</comment-item>
+        <comment-item v-for="(comment, index) in passComments" :key="index" :comment="comment" :user="userNames[index]" @edit-comment="editComment" @delete-comment="deleteComment">{{comment}}</comment-item>
       </b-list-group>
       <div class="comment-box">
           <textarea v-model="message" placeholder="add multiple lines"></textarea>
@@ -14,12 +14,19 @@
 <script>
 import CommentItem from '@/components/CommentItem'
 import { Api } from '@/Api'
+import data from '@/data'
 
 export default {
   name: 'comment-composite',
+  props: {
+    gameId: String
+  },
   data() {
     return {
-      comments: []
+      comments: [],
+      passComments: [],
+      userNames: [],
+      message: ''
     }
   },
   mounted() {
@@ -29,40 +36,68 @@ export default {
     getComments() {
       // TODO: use actual game id
       // 1 Is just a placeholder for the actual gameId you'll eventually get from the actual game page.
-      Api.get('games/1/comments')
-        .then(reponse => {
-          this.comments = reponse.data.comments
+      Api.get(`games/${this.gameId}/comments`)
+        .then(response => {
+          this.comments = response.data.comments
         })
         .catch(error => {
           this.comments = []
           console.log(error)
         })
         .then(() => {
-          // This code is always executed (after success or error).
+          this.matchUsers()
+        })
+    },
+    matchUsers() {
+      let users
+      Api.get('users')
+        .then(res => {
+          users = res.data.users
+        })
+        .catch(error => {
+          users = []
+          console.log(error)
+        })
+        .then(() => {
+          if (users) {
+            this.userNames = []
+            this.comments.forEach(comment => {
+              let index = users.map(x => {
+                return x._id
+              }).indexOf(comment.userId)
+              this.userNames.push(index === -1 ? 'Unknown' : users[index].userName)
+            })
+          }
+          this.passComments = this.comments
         })
     },
     deleteComment(id) {
       Api.delete(`/comments/${id}`)
         .then(response => {
-          console.log(response.data.message)
+          console.log(response.data)
           var index = this.comments.findIndex(comment => comment._id === id)
           this.comments.splice(index, 1)
         })
         .catch(error => {
           console.log(error)
         })
+        .then(() => {
+          this.matchUsers()
+        })
     },
     // Doesn't work for some reason
-    editComment(id, message) {
-      console.log('Message to be put:' + message)
+    editComment(id) {
+      console.log('Message to be put:' + this.message)
       var comment = {
-        comment: message
+        comment: this.message,
+        userId: '',
+        gameId: this.gameId
       }
       Api.put(`/comments/${id}`, comment)
         .then(response => {
-          console.log(response.data.message)
+          console.log(response.data.comments)
           var index = this.comments.findIndex(comment => comment._id === id)
-          this.comments.splice(index, 1)
+          this.comments.splice(index, 1, comment)
         })
         .catch(error => {
           console.log(error)
@@ -72,15 +107,21 @@ export default {
     createComment(message) {
       var comment = {
         comment: message,
-        userName: 'tmp',
-        gameId: 1
+        userId: data.getUser(),
+        gameId: this.gameId
       }
+      console.log(comment)
       Api.post('/comments', comment)
         .then(response => {
-          this.camels.push(response.data)
+          this.comments.push(response.data)
+          console.log('Comment added to the db :)')
         })
         .catch(error => {
           console.log(error)
+          console.log('Error posting comment :(')
+        })
+        .then(() => {
+          this.matchUsers()
         })
     }
   },

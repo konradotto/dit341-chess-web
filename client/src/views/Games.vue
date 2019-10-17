@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    <GameTable type="Game" :data="games" :route="route" :delete="deleteGame" :deleteAll="deleteAllGames"/>
+    <GameTable type="Game" :data="games" :route="route" :viewRoute="viewRoute" :delete="deleteGame" :deleteAll="deleteAllGames"/>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ export default {
     return {
       authorized: false,
       route: '/game_data',
+      viewRoute: '/game',
       games: []
     }
   },

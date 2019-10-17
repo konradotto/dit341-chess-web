@@ -27,7 +27,7 @@ let createGame = function(req, res, next) {
 let getGames = function(req, res, next) {
     Game.find(function(err, games) {
         if (err) { return next(err); }
-        res.json({'games': games});
+        res.status(200).json({'games': games});
     });
 };
 
@@ -39,7 +39,7 @@ let getGame = function(req, res, next) {
         if (game === null) {
             return res.status(404).json({'message': 'Game not found'});
         }
-        res.json(game);
+        res.status(200).json(game);
     });
 };
 
@@ -52,7 +52,7 @@ let updateGame = function(req, res, next) {
         if (game === null) {
             return res.status(404).json({'message': 'Game not found'});
         }
-        res.json(game);     // send the updated game as response
+        res.status(200).json(game);     // send the updated game as response
     })
 };
 
@@ -65,7 +65,7 @@ let patchGame = function(req, res, next) {
         if (game === null) {
             return res.status(404).json({'message': 'Game not found'});
         }
-        res.json(game);
+        res.status(200).json(game);
     })
 }
 
@@ -78,7 +78,7 @@ let deleteGame = function(req, res, next) {
         if (game === null) {
             return res.status(404).json({'message': 'Game not found'});
         }
-        res.json(game);
+        res.status(200).json(game);
     })
 }
 
@@ -87,13 +87,13 @@ let deleteGames = function(req, res, next) {
     // delete all games
     Game.deleteMany({}, (err) => {
         if (err) { return next(err); }
-        else { res.end('All games deleted successfully') }
+        else { res.status(200).end('All games deleted successfully') }
     })
 }
 
 // Deliver error 405 'Method Not Allowed' for all methods not defined previously
 let methodNotAllowed = function(req, res, next) {
-    res.set('Allow', ['POST', 'GET', 'UPDATE']);
+    res.set('Allow', ['POST', 'GET', 'PUT', 'PATCH', 'DELETE']);
     res.status(405).json({'message': 'Method Not Allowed'});
 };
 
