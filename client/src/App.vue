@@ -1,10 +1,9 @@
 <template>
   <div id="app">
     <NavBar/>
-    <b-container>
+    <b-container id="router-container">
       <router-view/>
     </b-container>
-    <div id="board1"></div>
   </div>
 </template>
 

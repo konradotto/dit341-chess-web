@@ -2,43 +2,33 @@ var User = require('../user/userModel');
 var Game = require('../game/gameModel');
 
 function checkUserExists(req, res, next) {
-    User.find((error, users) => {
+    User.findById(req.body.userId, (error, user) => {
+        // forward error to next function
         if (error) {
             next(error);
         }
 
-        var userExists = false;
-        users.forEach(user => {
-            if (user.userName === req.body.userName) {
-                userExists = true;
-            }
-        })
-
-        if (userExists) {
+        // continue if user exists, otherwise return appropriate status code with message
+        if (user !== null) {
             next();
         } else {
-            return res.status(400).json({"message": "userName not found"});
+            return res.status(400).json({"message": `no user with id ${req.body.userId} not found`});
         }
     });
 }
 
 function checkGameExists(req, res, next) {
-    Game.find((error, games) => {
+    Game.findById(req.body.gameId, (error, game) => {
+        // forward error to next function
         if (error) {
             next(error);
         }
 
-        var gameExists = false;
-        games.forEach(game => {
-            if (game.gameId === req.body.gameId) {
-                gameExists = true;
-            }
-        })
-
-        if (gameExists) {
+        // continue if game exists, otherwise return appropriate status code with message
+        if (game !== null) {
             next();
         } else {
-            return res.status(400).json({"message": "gameId not found"});
+            return res.status(400).json({"message": `no game with id ${req.body.gameId} found`});
         }
     });
 }

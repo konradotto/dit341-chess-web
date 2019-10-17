@@ -10,7 +10,7 @@ function getComments(req, res, next) {
         if (err) { 
             return next(err); 
         }
-        res.json({'comments': comments});
+        res.status(200).json({'comments': comments});
     });
 }
 
@@ -31,7 +31,7 @@ function deleteComments(req, res, next) {
         if (err) { 
             return next(err); 
         }
-        res.status(202);
+        res.status(202).json({'message': 'Request to delete all comments accepted'});
     });
 }
 
@@ -44,7 +44,7 @@ function updateComment(req, res, next) {
             return next(err);
         }
 
-        return res.json(comment)
+        return res.status(200).json(comment)
     });
 }
 
@@ -58,7 +58,7 @@ function getComment(req, res, next) {
         if (comment === null) {
             return res.status(404).json({'message': 'Comment not found'});
         }
-        res.json(comment);
+        res.status(200).json(comment);
     });
 }
 
@@ -72,18 +72,17 @@ function deleteComment(req, res, next) {
         if (comment === null) {
             return res.status(404).json({'message': 'Comment not found'});
         }
-        res.json(comment);
+        res.status(200).json(comment);
     });
 }
 
-// Gets all the comments for the given userName
+// Gets all the comments for the given userId
 function getUsersComments(req, res, next) {
-    var userName = req.params.username;
-    Comment.find({userName : userName}, function(err, comments) {
+    Comment.find({userId : req.params.userId}, function(err, comments) {
         if (err) { 
             return next(err); 
         }
-        res.json({'comments': comments});
+        res.status(200).json({'comments': comments});
     });
 }
 
