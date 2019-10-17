@@ -25,8 +25,20 @@ let createGame = function(req, res, next) {
 
 // Return a list of all games
 let getGames = function(req, res, next) {
+    let resultFilter = req.query.result;
+
     Game.find(function(err, games) {
         if (err) { return next(err); }
+
+        if (resultFilter === 'white') {
+            games = games.filter(game => game.result === '1-0')
+        } else if (resultFilter === 'black') {
+            games = games.filter(game => game.result === '0-1')
+        } else if (resultFilter === 'draw') {
+            games = games.filter(game => game.result === '0.5-0.5')
+        } else if (resultFilter === 'progress') {
+            games = games.filter(game => game.result === 'progress')
+        }
         res.status(200).json({'games': games});
     });
 };
