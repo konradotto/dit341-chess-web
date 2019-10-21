@@ -71,8 +71,8 @@ app.use(function(err, req, res, next) {
 app.listen(port, function(err) {
     if (err) throw err;
     console.log(`Express server listening on port ${port}, in ${env} mode`);
-    console.log(`Backend: http://localhost:${port}/api/`);
-    console.log(`Frontend (production): http://localhost:${port}/`);
+    console.log(`Backend: http://localhost:${port}/api/v1/`);
+    console.log(`Frontend (production): http://localhost:${port}/api/v1/`);
 });
 
 module.exports = app;
