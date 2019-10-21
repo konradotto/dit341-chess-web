@@ -14,7 +14,7 @@ var commentsController = require('./entities/comment/commentRouter');
 var commentRelationsController = require('./entities/comment/commentRelationsRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 27018;
 
 
 // Connect to MongoDB
