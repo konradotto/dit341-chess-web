@@ -39,9 +39,9 @@ app.use(morgan('dev'));                // HTTP request logger
 app.options('*', cors());              // Enable cross-origin resource sharing for frontend must be registered before api
 app.use(cors());
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
+// if (process.env.NODE_ENV === 'production') {
+// 	app.use(express.static('client/build'));
+// }
 
 // Endpoints
 app.use('/api/v1/users', usersController)
@@ -76,7 +76,7 @@ app.listen(port, function(err) {
     if (err) throw err;
     console.log(`Express server listening on port ${port}, in ${env} mode`);
     console.log(`Backend: http://localhost:${port}/api/v1/`);
-    console.log(`Frontend (production): http://localhost:${port}/api/v1/`);
+    console.log(`Frontend (production): http://localhost:${port}`);
 });
 
 module.exports = app;
