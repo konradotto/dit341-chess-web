@@ -17,10 +17,6 @@ var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
 var port = process.env.PORT || 27018;
 
 
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
-
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
     if (err) {
@@ -42,6 +38,10 @@ app.use(bodyParser.json());            // Parse requests of content-type 'applic
 app.use(morgan('dev'));                // HTTP request logger
 app.options('*', cors());              // Enable cross-origin resource sharing for frontend must be registered before api
 app.use(cors());
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
+}
 
 // Endpoints
 app.use('/api/v1/users', usersController)
