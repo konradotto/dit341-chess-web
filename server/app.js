@@ -3,7 +3,9 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
+var path = require('path');
 var cors = require('cors');
+var history = require('connect-history-api-fallback');
 
 var usersController = require('./entities/user/userRouter');
 var ratingsController = require('./entities/rating/ratingRouter');
@@ -14,7 +16,7 @@ var commentsController = require('./entities/comment/commentRouter');
 var commentRelationsController = require('./entities/comment/commentRelationsRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 
 
 // Connect to MongoDB
