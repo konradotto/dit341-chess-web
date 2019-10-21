@@ -14,7 +14,7 @@ var commentsController = require('./entities/comment/commentRouter');
 var commentRelationsController = require('./entities/comment/commentRelationsRouter');
 
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/chessDb';
-var port = process.env.PORT || 27018;
+var port = process.env.PORT || 3000;
 
 
 // Connect to MongoDB
@@ -39,10 +39,6 @@ app.use(morgan('dev'));                // HTTP request logger
 app.options('*', cors());              // Enable cross-origin resource sharing for frontend must be registered before api
 app.use(cors());
 
-// if (process.env.NODE_ENV === 'production') {
-// 	app.use(express.static('client/build'));
-// }
-
 // Endpoints
 app.use('/api/v1/users', usersController)
 app.use('/api/v1/ratings', ratingsController)
@@ -55,6 +51,14 @@ app.use('/api/v1/games', commentRelationsController);
 app.get('/api/v1', function(req, res) {
     res.json({'message': 'Welcome to our DIT341 backend ExpressJS project!'});
 });
+
+// Configuration for serving frontend in production mode
+// Support Vuejs HTML 5 history mode
+app.use(history());
+// Serve static assets
+var root = path.normalize(__dirname + '/..');
+var client = path.join(root, 'client', 'dist');
+app.use(express.static(client));
 
 // Error handler (i.e., when exception is thrown) must be registered last
 var env = app.get('env');
