@@ -15,7 +15,7 @@
     "chess-js": "^2.0.0",
     "chessboardjs": "0.0.1",
     "dateformat": "^3.0.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "sass": "^1.22.10",
     "sass-loader": "^7.2.0",
     "vue": "^2.6.10",
